@@ -23,7 +23,7 @@ on:
 jobs:
   main:
     env:
-      HUMANITEC_TOKEN: ${{ secrets.HUMANITEC_DEV_TOKEN }}
+      HUMANITEC_TOKEN: ${{ secrets.HUMANITEC_TOKEN }}
       HUMANITEC_ORG: ${{ inputs.org_id }}
     runs-on: ubuntu-latest
     steps:
