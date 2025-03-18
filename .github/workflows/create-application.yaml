@@ -28,6 +28,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: humanitec/setup-cli-action@v1
+        with:
+          version: '0.32.0'
       - run: 'humctl create app "${{ inputs.name }}"'
       - run: |
           humctl api post "/orgs/${{ env.HUMANITEC_ORG }}/apps/${{ inputs.name }}/users" -d '{"id": "${{ inputs.owner }}", "role": "owner"}'
