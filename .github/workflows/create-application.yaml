@@ -35,3 +35,5 @@ jobs:
           humctl api post "/orgs/${{ env.HUMANITEC_ORG }}/apps/${{ inputs.name }}/users" -d '{"id": "${{ inputs.owner }}", "role": "owner"}'
       - run: 'humctl create env staging --type staging --app "${{ inputs.name }}"'
       - run: 'humctl create env production --type production --app "${{ inputs.name }}"'
+      - run: 'humctl score init'
+      - run: 'humctl score deploy --wait -p resources.db=null -p workloads.hello-world.variables={"PORT":"3000","MESSAGE":"Hello World"}
