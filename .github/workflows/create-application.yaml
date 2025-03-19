@@ -37,4 +37,4 @@ jobs:
       - run: 'humctl create env production --type production --app "${{ inputs.name }}"'
       - run: 'humctl score init'
       - run: |
-          humctl score deploy --wait -p 'resources.db=null' -p 'workloads.hello-world.variables={"PORT":"3000","MESSAGE":"Hello World"}' -p 'metadata.annotations.Github-Repo="https://github.com/humanitec/canyon-demo-samples"'
+          humctl score deploy --app "${{ inputs.name }}" --env "development" --wait -p 'resources.db=null' -p 'workloads.hello-world.variables={"PORT":"3000","MESSAGE":"Hello World"}' -p 'metadata.annotations.Github-Repo="https://github.com/humanitec/canyon-demo-samples"'
