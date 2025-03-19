@@ -36,7 +36,7 @@ jobs:
       - run: 'humctl create env staging --type staging --app "${{ inputs.name }}"'
       - run: 'humctl create env production --type production --app "${{ inputs.name }}"'
       - run: |
-          cat > score.yaml <<EOF
+          cat > score.yaml <<"EOF"
           # Score Specification version
           apiVersion: score.dev/v1b1
 
