@@ -43,7 +43,7 @@ jobs:
           # Defines metadata description of your Workload
           metadata:
             # Specifies a string that can describe your Workload
-            name: basic-app
+            name: ${{ inputs.name }}-app
             annotations:
               Github-Repo: https://github.com/astromechza/demo-app
               Version: v0.6.7
