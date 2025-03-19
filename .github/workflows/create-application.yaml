@@ -35,6 +35,50 @@ jobs:
           humctl api post "/orgs/${{ env.HUMANITEC_ORG }}/apps/${{ inputs.name }}/users" -d '{"id": "${{ inputs.owner }}", "role": "owner"}'
       - run: 'humctl create env staging --type staging --app "${{ inputs.name }}"'
       - run: 'humctl create env production --type production --app "${{ inputs.name }}"'
-      - run: 'humctl score init'
       - run: |
-          humctl score deploy --app "${{ inputs.name }}" --env "development" --wait -p 'resources.db=null' -p 'workloads.hello-world.variables={"PORT":"3000","MESSAGE":"Hello World"}' -p 'metadata.annotations.Github-Repo="https://github.com/humanitec/canyon-demo-samples"'
+          cat > score.yaml <<EOF
+          # Score Specification version
+          apiVersion: score.dev/v1b1
+
+          # Defines metadata description of your Workload
+          metadata:
+            # Specifies a string that can describe your Workload
+            name: basic-app
+            annotations:
+              Github-Repo: https://github.com/astromechza/demo-app
+              Version: v0.6.7
+
+          # Defines how an application can expose its resources when executed.
+          service:
+            ports:
+              # Specifies the port name
+              www:
+                # The port to expose to an external application
+                port: 8080
+
+          # Defines how the Workload’s tasks are executed
+          containers:
+            # Specifies a name of the container image
+            main:
+              # Docker image name and tag
+              image: ghcr.io/astromechza/demo-app:v0.6.7
+              # Specifies environment variable
+              variables:
+                PORT: "3000"
+                MESSAGE: "Hello, World!"
+
+          # Defines dependencies needed by the Workload
+          resources:
+            # Specifies the resource name
+            route:
+              # Specifies the resource type
+              type: route
+              # Specifies the resource parameters
+              params:
+                host: ${resources.dns.host}
+                path: /
+                port: 8080
+            dns:
+              type: dns
+          EOF
+      - run: humctl score deploy --app "${{ inputs.name }}" --env "development" --wait
