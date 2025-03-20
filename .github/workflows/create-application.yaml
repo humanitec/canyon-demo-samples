@@ -36,6 +36,12 @@ jobs:
       - run: 'humctl create env staging --type staging --app "${{ inputs.name }}"'
       - run: 'humctl create env production --type production --app "${{ inputs.name }}"'
       - run: |
+          humctl api post /orgs/${{ env.HUMANITEC_ORG }}/resources/defs/my-cluster/criteria -d '{"app_id": "${{ inputs.name }}"}'
+      - run: |
+          humctl api post /orgs/${{ env.HUMANITEC_ORG }}/resources/defs/agent-my-cluster/criteria -d '{"app_id": "${{ inputs.name }}"}'
+      - run: |
+          humctl api post /orgs/${{ env.HUMANITEC_ORG }}/resources/defs/my-vd-tf-fake-s3/criteria -d '{"app_id": "${{ inputs.name }}"}'
+      - run: |
           cat > score.yaml <<"EOF"
           # Score Specification version
           apiVersion: score.dev/v1b1
