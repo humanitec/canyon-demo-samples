@@ -82,3 +82,16 @@ jobs:
               type: dns
           EOF
       - run: humctl score deploy --app "${{ inputs.name }}" --env "development" --wait
+  catch:
+    needs:
+      - main
+    if: ${{ failure() }}
+    env:
+      HUMANITEC_TOKEN: ${{ secrets.HUMANITEC_TOKEN }}
+      HUMANITEC_ORG: ${{ inputs.org_id }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: humanitec/setup-cli-action@v1
+        with:
+          version: '0.32.0'
+      - run: 'humctl delete app "${{ inputs.name }}"'
