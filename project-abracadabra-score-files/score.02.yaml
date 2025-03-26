@@ -1,0 +1,15 @@
+apiVersion: score.dev/v1b1
+metadata:
+  name: banana-services
+  annotations:
+    Service-Owner: The Frontend Team
+    Github-Repo-Url: https://github.com/astromechza/demo-app
+    Git-Tag: v0.6.5
+    Grafana-Cloud-Dashboard-Url: https://grafana.com/grafana/dashboards/bananas-service
+containers:
+  main:
+    image: ghcr.io/astromechza/demo-app:v0.6.5
+resources:
+  other-bucket:
+    type: s3
+    id: common-bucket
