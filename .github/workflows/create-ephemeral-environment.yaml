@@ -37,3 +37,4 @@ jobs:
       - run: humctl get app --org ${{ inputs.org_id }} ${{ inputs.app_id }}
       - run: humctl get env --org ${{ inputs.org_id }} --app ${{ inputs.app_id }} development
       - run: humctl create env --org ${{ inputs.org_id }} --app ${{ inputs.app_id }} ${{ inputs.env_id }} --type development --from development
+      - run: humctl deploy ${{ inputs.org_id }} --app ${{ inputs.app_id }} env development ${{ inputs.env_id }} --wait
