@@ -6,8 +6,7 @@ humctl api delete /orgs/canyon-demo/action-pipelines/create-ephemeral-environmen
 yq -o j << EOF | humctl api post /orgs/canyon-demo/action-pipelines -f -
 description: |
   This action is a standard path to help developers create a new temporary environment in an existing application in order to test a small change.
-  You must give this path a unique name for an environment that doesn't exist already in the application, preferably 'development' followed by a random number or timestamp.
-  This action will clone the existing development environment.
+  You must give this path a unique name 'development-<random>'. This will clone the existing development.
 github_workflow_params:
   access_token: $(op item get --account 'humanitecgmbh.1password.com' 'Github canyon-demo-samples API TOKEN' --fields credential)
   inputs:
