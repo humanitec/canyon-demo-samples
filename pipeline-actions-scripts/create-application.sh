@@ -10,7 +10,7 @@ github_workflow_params:
   inputs:
     name: \${{ inputs.id }}
     org_id: \${{ pipeline.org.id }}
-    owner: \${{ pipeline.run.run_as }}
+    user: \${{ pipeline.run.run_as }}
     run-id: \${{ pipeline.run.id }}
   url: https://github.com/humanitec/canyon-demo-samples/blob/main/.github/workflows/create-application.yaml
 id: create-application

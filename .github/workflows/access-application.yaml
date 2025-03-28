@@ -31,4 +31,4 @@ jobs:
         with:
           version: '0.32.0'
       - run: |
-          humctl api post "/orgs/${{ env.HUMANITEC_ORG }}/apps/${{ inputs.name }}/users" -d '{"id": "${{ inputs.owner }}", "role": "viewer"}'
+          humctl api post "/orgs/${{ env.HUMANITEC_ORG }}/apps/${{ inputs.name }}/users" -d '{"id": "${{ inputs.user }}", "role": "viewer"}'

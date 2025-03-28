@@ -13,7 +13,6 @@ github_workflow_params:
     app_id: \${{ inputs.app_id }}
     env_id: \${{ inputs.env_id }}
     org_id: \${{ pipeline.org.id }}
-    owner: \${{ pipeline.run.run_as }}
     run-id: \${{ pipeline.run.id }}
   url: https://github.com/humanitec/canyon-demo-samples/blob/main/.github/workflows/create-ephemeral-environment.yaml
 id: create-ephemeral-environment

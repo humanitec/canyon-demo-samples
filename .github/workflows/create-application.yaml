@@ -10,7 +10,7 @@ on:
         description: The org to create the app in
         required: true
         type: string
-      owner:
+      user:
         description: The owner id
         required: true
         type: string
@@ -32,13 +32,13 @@ jobs:
           version: '0.32.0'
       - run: 'humctl create app "${{ inputs.name }}"'
       - run: |
-          humctl api post "/orgs/${{ env.HUMANITEC_ORG }}/apps/${{ inputs.name }}/users" -d '{"id": "${{ inputs.owner }}", "role": "owner"}'
+          humctl api post "/orgs/${{ env.HUMANITEC_ORG }}/apps/${{ inputs.name }}/users" -d '{"id": "${{ inputs.user }}", "role": "owner"}'
       - run: |
-          humctl api post "/orgs/${{ env.HUMANITEC_ORG }}/env-types/development/users" -d '{"id": "${{ inputs.owner }}", "role": "deployer"}'
+          humctl api post "/orgs/${{ env.HUMANITEC_ORG }}/env-types/development/users" -d '{"id": "${{ inputs.user }}", "role": "deployer"}'
       - run: |
-          humctl api post "/orgs/${{ env.HUMANITEC_ORG }}/env-types/staging/users" -d '{"id": "${{ inputs.owner }}", "role": "deployer"}'
+          humctl api post "/orgs/${{ env.HUMANITEC_ORG }}/env-types/staging/users" -d '{"id": "${{ inputs.user }}", "role": "deployer"}'
       - run: |
-          humctl api post "/orgs/${{ env.HUMANITEC_ORG }}/env-types/production/users" -d '{"id": "${{ inputs.owner }}", "role": "deployer"}'
+          humctl api post "/orgs/${{ env.HUMANITEC_ORG }}/env-types/production/users" -d '{"id": "${{ inputs.user }}", "role": "deployer"}'
       - run: 'humctl create env staging --type staging --app "${{ inputs.name }}"'
       - run: 'humctl create env production --type production --app "${{ inputs.name }}"'
       - run: |

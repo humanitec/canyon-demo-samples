@@ -14,10 +14,6 @@ on:
         description: The org to create the app in
         required: true
         type: string
-      owner:
-        description: The owner id
-        required: true
-        type: string
       run-id:
         description: The run id passed in from the Humanitec Pipeline
         required: false
