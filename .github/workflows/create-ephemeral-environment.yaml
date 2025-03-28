@@ -1,0 +1,39 @@
+name: Create Ephemeral Environment
+on:
+  workflow_dispatch:
+    inputs:
+      app_id:
+        description: The app id
+        required: true
+        type: string
+      env_id:
+        description: The new env id
+        required: true
+        type: string
+      org_id:
+        description: The org to create the app in
+        required: true
+        type: string
+      owner:
+        description: The owner id
+        required: true
+        type: string
+      run-id:
+        description: The run id passed in from the Humanitec Pipeline
+        required: false
+        default: unknown
+        type: string
+
+jobs:
+  main:
+    env:
+      HUMANITEC_TOKEN: ${{ secrets.HUMANITEC_TOKEN }}
+      HUMANITEC_ORG: ${{ inputs.org_id }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: humanitec/setup-cli-action@v1
+        with:
+          version: '0.32.0'
+      - run: humctl get app --org ${{ inputs.org_id }} ${{ inputs.app_id }}
+      - run: humctl get env --org ${{ inputs.org_id }} --app ${{ inputs.app_id }} development
+      - run: humctl create env --org ${{ inputs.org_id }} --app ${{ inputs.app_id }} ${{ inputs.env_id }} --type development --from development

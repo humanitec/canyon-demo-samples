@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+
+set -eu
 
 humctl api delete /orgs/canyon-demo/action-pipelines/create-application || true
 yq -o j << EOF | humctl api post /orgs/canyon-demo/action-pipelines -f -
