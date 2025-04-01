@@ -1,0 +1,34 @@
+name: Link Resource Definition
+on:
+  workflow_dispatch:
+    inputs:
+      org_id:
+        description: The org to create the app in
+        required: true
+        type: string
+      app_id:
+        description: The app id
+        required: true
+        type: string
+      env_id:
+        description: The env id
+        required: true
+        type: string
+      run-id:
+        description: The run id passed in from the Humanitec Pipeline
+        required: false
+        default: unknown
+        type: string
+
+jobs:
+  main:
+    env:
+      HUMANITEC_TOKEN: ${{ secrets.HUMANITEC_TOKEN }}
+      HUMANITEC_ORG: ${{ inputs.org_id }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: humanitec/setup-cli-action@v1
+        with:
+          version: '0.32.0'
+      - run: |
+          humctl api post /orgs/${{ env.HUMANITEC_ORG }}/resources/defs/my-vd-tf-fake-s3/criteria -d '{"app_id": "${{ inputs.name }}", "env_id": "${{ inputs.env_id }}"}'
