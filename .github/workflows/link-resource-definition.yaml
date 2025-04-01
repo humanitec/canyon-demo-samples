@@ -31,4 +31,4 @@ jobs:
         with:
           version: '0.32.0'
       - run: |
-          humctl api post /orgs/${{ env.HUMANITEC_ORG }}/resources/defs/my-vd-tf-fake-s3/criteria -d '{"app_id": "${{ inputs.name }}", "env_id": "${{ inputs.env_id }}"}'
+          humctl api post /orgs/${{ env.HUMANITEC_ORG }}/resources/defs/my-fake-pg/criteria -d '{"app_id": "${{ inputs.name }}", "env_id": "${{ inputs.env_id }}"}'
