@@ -32,6 +32,7 @@ jobs:
           version: '0.32.0'
       - run: |
           humctl api post /orgs/${{ env.HUMANITEC_ORG }}/resources/defs/my-fake-pg/criteria -d '{"app_id": "${{ inputs.name }}", "env_id": "${{ inputs.env_id }}"}'
-      - run: |
+      - run: >-
           delta_id=$(humctl api post /orgs/${{ env.HUMANITEC_ORG }}/apps/${{ inputs.app_id }}/deltas -d '{"metadata":{"env_id":"${{ inputs.env_id }}"}, "modules":{"update":{"${{ inputs.app_id }}-app":[{"op":"add","path":"/externals/db","value":{"type":"postgres"}},{"op":"add","path":"/spec/containers/main/variables/PSQL_CONNECTION","value":"postgresql://${externals.db.username}:${externals.db.password}@${externals.db.host}:${externals.db.port}/${externals.db.name}"}]}}}');
+          echo ${delta_id};
           humctl deploy --org ${{ inputs.org_id }} --app ${{ inputs.app_id }} --env ${{ inputs.env_id }} delta ${delta_id} .
