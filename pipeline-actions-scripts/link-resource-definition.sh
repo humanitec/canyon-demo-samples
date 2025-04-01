@@ -5,8 +5,8 @@ set -eu
 humctl api delete /orgs/canyon-demo/action-pipelines/link-postgres-resource-definition || true
 yq -o j << EOF | humctl api post /orgs/canyon-demo/action-pipelines -f -
 description: |
-  This path adds a resource definition matching criteria for a postgres resource to this app and environment. This allows the postgres resource type to be used in the environment.
-  Without doing this path, the deployment with a postgres resource may fail.
+  This path adds a postgres resource to the deployment set in the target environment. It also adds a PSQL_CONNECTION environment variable to all workloads in the deployment set. This variable will reference the new resource.
+  This will deploy the environment after adding the resource.
 github_workflow_params:
   access_token: $(op item get --account 'humanitecgmbh.1password.com' 'Github canyon-demo-samples API TOKEN' --fields credential)
   inputs:
