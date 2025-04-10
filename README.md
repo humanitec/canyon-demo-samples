@@ -1,2 +1,3 @@
 # canyon-demo-samples
-A set of sample content for the canyon project demos
+
+A set of sample content for demos and feedback sessions.
